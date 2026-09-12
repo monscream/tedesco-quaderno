@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#A15C2E">
+<meta name="theme-color" content="#26497F">
 <meta name="description" content="Le lezioni di tedesco, sempre a portata di mano.">
 <title>Quaderno di tedesco</title>
 <link rel="manifest" href="manifest.json">
@@ -17,19 +17,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg2:#F6F0E8;--card:#FFFFFF;--glass:rgba(255,255,255,.74);--glassLine:rgba(255,255,255,.92);
-  --glassBar:rgba(250,245,238,.86);--line:rgba(90,62,36,.16);--ink:#241E18;--mute:#6F6357;
-  --acc:#A15C2E;--accSoft:#F6E7D8;--hot:#C0392F;--ok:#2F6B4F;--okSoft:#E3F0E9;--no:#B0343A;--noSoft:#FAE7E8;
-  --shadow:0 24px 48px -34px rgba(60,40,24,.5);--de:'Lora',Georgia,serif;--ui:'Manrope',system-ui,-apple-system,sans-serif;
+  --bg2:#EFF4FA;--card:#FFFFFF;--glass:rgba(255,255,255,.72);--glassLine:rgba(255,255,255,.9);
+  --glassBar:rgba(245,249,253,.85);--line:rgba(38,73,127,.15);--ink:#15243D;--mute:#5A6B86;
+  --acc:#26497F;--accSoft:#E2EBF7;--hot:#C0392F;--ok:#1F6B57;--okSoft:#E0F1EB;--no:#B5313A;--noSoft:#FAE6E8;
+  --shadow:0 24px 48px -34px rgba(21,36,61,.5);--de:'Lora',Georgia,serif;--ui:'Manrope',system-ui,-apple-system,sans-serif;
   --radius:22px;
 }
 *{box-sizing:border-box}html,body{margin:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--ui);color:var(--ink);font-size:16px;line-height:1.55;
- background:radial-gradient(1000px 500px at 92% -10%,#F2E2D1 0%,rgba(242,226,209,0) 62%),radial-gradient(760px 420px at 0% 18%,#F5EADF 0%,rgba(245,234,223,0) 58%),linear-gradient(#F8F3EC,#FDFBF8);min-height:100vh;-webkit-tap-highlight-color:transparent;
+ background:radial-gradient(1000px 500px at 92% -10%,#DCE7F6 0%,rgba(220,231,246,0) 62%),radial-gradient(760px 420px at 0% 18%,#E7EEF8 0%,rgba(231,238,248,0) 58%),linear-gradient(#F1F5FB,#FAFCFE);min-height:100vh;-webkit-tap-highlight-color:transparent;
  padding-bottom:env(safe-area-inset-bottom)}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;
- background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23A15C2E' stroke-opacity='.10' stroke-width='1'%3E%3Cpath d='M0 40h240M0 90h240M0 140h240M0 190h240'/%3E%3Ccircle cx='196' cy='64' r='18'/%3E%3Ccircle cx='52' cy='166' r='11'/%3E%3C/g%3E%3C/svg%3E")}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%2326497F' stroke-opacity='.09' stroke-width='1'%3E%3Ccircle cx='60' cy='60' r='34'/%3E%3Ccircle cx='180' cy='150' r='22'/%3E%3Ccircle cx='100' cy='190' r='14'/%3E%3Cpath d='M0 120 Q60 96 120 120 T240 120'/%3E%3C/g%3E%3C/svg%3E")}
 .page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 90px}
 a{color:inherit}button{font:inherit;color:inherit}
 
@@ -54,7 +54,7 @@ header .hb{display:flex;gap:6px}
 .sheet p{margin:0 0 14px;font-size:13.5px;color:var(--mute)}
 .sheet select{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg2);color:var(--ink)}
 .sheet .row{display:flex;gap:8px;margin-top:12px}
-.scrim{position:fixed;inset:0;background:rgba(36,30,24,.28);z-index:29;opacity:0;pointer-events:none;transition:opacity .28s}
+.scrim{position:fixed;inset:0;background:rgba(20,30,26,.28);z-index:29;opacity:0;pointer-events:none;transition:opacity .28s}
 .scrim.open{opacity:1;pointer-events:auto}
 
 .hero{padding:22px 0 4px}
@@ -201,6 +201,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .prog-riga .n{font-variant-numeric:tabular-nums;font-weight:700;min-width:60px;text-align:right}
 .prossimi{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.7;color:var(--mute)}
 .prossimi b{color:var(--ink);font-weight:700}
+
+.ric{padding:20px 0;border-top:1px solid var(--line)}
+.ric:first-child{border-top:none;padding-top:0}
+.ric-it{font-size:15px;color:var(--mute);margin-bottom:10px;line-height:1.5}
+.ric-strip{min-height:56px;border:1.5px dashed var(--line);border-radius:14px;padding:9px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg2);transition:border-color .2s}
+.ric-strip:empty::before{content:"Tocca le parole qui sotto per comporre la frase";color:var(--mute);font-size:13px;font-family:var(--ui)}
+.ric-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.parola{font:inherit;font-family:var(--de);font-weight:500;font-size:17px;padding:9px 15px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--ink)}
+.parola:active{transform:scale(.96)}
+.parola.piazzata{background:var(--accSoft);border-color:var(--acc);color:var(--acc)}
+.parola[hidden]{display:none}
+.ric.corretto .ric-strip{border-style:solid;border-color:var(--ok)}
+.ric.corretto .parola.piazzata{background:var(--okSoft);border-color:var(--ok);color:var(--ok)}
 
 footer{text-align:center;color:var(--mute);font-size:12.5px;padding:18px 0 0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -358,6 +371,97 @@ function mazzoDiLezione(lez){
     ...voc.map((v,i)=>({card_n:i+1,          de:v&&v.de,it:v&&v.it,tipo:"vocabolo"})),
     ...fra.map((f,i)=>({card_n:voc.length+i+1,de:f&&f.de,it:f&&f.it,tipo:"frase"}))
   ].filter(c=>c.de||c.it);
+}
+
+/* ---------- ricomponi la frase ---------- */
+function mescola(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+let frasiRicomponi=[];
+/* Sceglie fino a 3 frasi tra le più lunghe della lezione: le corte si ricompongono
+   da sole e non allenano nulla sull'ordine delle parole, che in tedesco è il punto. */
+function scegliFrasiRicomponi(frasi){
+  const eleggibili=(frasi||[])
+    .filter(f=>f&&f.de&&f.it)
+    .map(f=>({de:String(f.de),it:String(f.it),tok:String(f.de).split(/\s+/).filter(Boolean)}))
+    .filter(f=>f.tok.length>=3)
+    .sort((a,b)=>b.tok.length-a.tok.length);
+  const meta=Math.max(1,Math.ceil(eleggibili.length/2));
+  frasiRicomponi=mescola(eleggibili.slice(0,meta)).slice(0,3);
+  return frasiRicomponi;
+}
+function attachRicomponi(scelte){
+  scelte.forEach((f,i)=>{
+    const tokens=f.tok;
+    const banco=tokens.map((t,idx)=>({testo:t,idx,usata:false}));
+    let ordine=mescola(banco),tentativi=0;
+    // evita che il mescolamento restituisca già la frase giusta
+    while(tentativi<6 && ordine.map(x=>x.testo).join("|")===tokens.join("|")){
+      ordine=mescola(banco);tentativi++;
+    }
+    let strisc=[],risolto=false;
+
+    const strip=document.getElementById(`ric-strip-${i}`);
+    const bank=document.getElementById(`ric-bank-${i}`);
+    const check=document.getElementById(`ric-check-${i}`);
+    const esito=document.getElementById(`ric-esito-${i}`);
+    const blocco=document.querySelector(`.ric[data-idx="${i}"]`);
+
+    function disegnaBanco(){
+      bank.innerHTML=ordine.map(x=>
+        `<button class="parola" data-idx="${x.idx}"${x.usata?" hidden":""}>${esc(x.testo)}</button>`).join("");
+      bank.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+        if(risolto) return;
+        const idx=parseInt(btn.dataset.idx,10);
+        banco[idx].usata=true;strisc.push(banco[idx]);
+        esito.style.display="none";
+        disegnaBanco();disegnaStriscia();
+      }));
+    }
+    function disegnaStriscia(){
+      strip.innerHTML=strisc.map(x=>
+        `<button class="parola piazzata" data-idx="${x.idx}">${esc(x.testo)}</button>`).join("");
+      strip.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+        if(risolto) return;
+        const idx=parseInt(btn.dataset.idx,10);
+        banco[idx].usata=false;
+        strisc=strisc.filter(x=>x.idx!==idx);
+        esito.style.display="none";
+        disegnaBanco();disegnaStriscia();
+      }));
+      check.disabled=strisc.length!==tokens.length;
+    }
+
+    document.getElementById(`ric-reset-${i}`).addEventListener("click",()=>{
+      banco.forEach(b=>b.usata=false);
+      strisc=[];risolto=false;
+      esito.style.display="none";
+      blocco.classList.remove("corretto");
+      disegnaBanco();disegnaStriscia();
+    });
+    const ascolta=document.getElementById(`ric-hear-${i}`);
+    ascolta.disabled=!ttsDisponibile;
+    ascolta.addEventListener("click",()=>parla(f.de));
+
+    check.addEventListener("click",()=>{
+      const giusto=strisc.map(x=>x.testo).join(" ")===tokens.join(" ");
+      esito.style.display="block";
+      if(giusto){
+        risolto=true;
+        esito.className="esito ok";
+        esito.textContent="Giusto — "+f.de;
+        blocco.classList.add("corretto");
+        parla(f.de);
+      } else {
+        esito.className="esito no";
+        esito.textContent="Non è l'ordine giusto. Tocca le parole che hai messo per rimetterle nel banco e riprova.";
+      }
+    });
+
+    disegnaBanco();disegnaStriscia();
+  });
 }
 
 /* ---------- componente flashcard riutilizzabile ---------- */
@@ -581,6 +685,7 @@ function renderLezione(lez,dati,stato){
   const esercizi=Array.isArray(lez.esercizi)?lez.esercizi:[];
   const mazzo=mazzoDiLezione(lez);
   const livello=lez.curriculum&&lez.curriculum.livello;
+  const ricomponi=scegliFrasiRicomponi(frasi);
 
   const ripassi=[3,10,30]
     .map(d=>({delta:d,numero:lez.numero-d,lez:dati.find(l=>l.numero===lez.numero-d)}))
@@ -589,6 +694,7 @@ function renderLezione(lez,dati,stato){
   const ancore=[];
   if(vocaboli.length)  ancore.push('<a href="#vocaboli">Vocaboli</a>');
   if(frasi.length)     ancore.push('<a href="#frasi">Frasi</a>');
+  if(ricomponi.length) ancore.push('<a href="#ricomponi">Ricomponi</a>');
   if(grammatica.length)ancore.push('<a href="#grammatica">Grammatica</a>');
   if(dialogo.length)   ancore.push('<a href="#dialogo">Dialogo</a>');
   if(mazzo.length)     ancore.push('<a href="#flashcard">Flashcard</a>');
@@ -640,6 +746,22 @@ function renderLezione(lez,dati,stato){
           <span class="de">${esc(f&&f.de)}</span>
           <span class="it">${esc(f&&f.it)}</span>
         </button>`).join("")}</div>
+    </div></section>`:""}
+
+    ${ricomponi.length?`<section id="ricomponi"><div class="card">
+      <div class="sh"><h2>Ricomponi la frase</h2><small>tocca le parole nell'ordine giusto</small></div>
+      ${ricomponi.map((f,i)=>`
+        <div class="ric" data-idx="${i}">
+          <div class="ric-it">${esc(f.it)}</div>
+          <div class="ric-strip" id="ric-strip-${i}"></div>
+          <div class="ric-bank" id="ric-bank-${i}"></div>
+          <div class="btnrow">
+            <button class="btn o" id="ric-reset-${i}">Ricomincia</button>
+            <button class="ib" id="ric-hear-${i}" data-tts aria-label="Ascolta la frase"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9v6h4l5 4V5L8 9H4zM17 8a5 5 0 010 8"/></svg></button>
+            <button class="btn" id="ric-check-${i}" disabled>Verifica</button>
+          </div>
+          <div class="esito" id="ric-esito-${i}" style="display:none"></div>
+        </div>`).join("")}
     </div></section>`:""}
 
     ${grammatica.length?`<section id="grammatica"><div class="card">
@@ -762,6 +884,8 @@ function attachLezione(lez,dati){
       }
     });
   });
+
+  if(frasiRicomponi.length) attachRicomponi(frasiRicomponi);
 
   const dia=document.getElementById("dia");
   if(dia){
