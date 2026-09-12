@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#A15C2E">
+<meta name="description" content="Le lezioni di tedesco, sempre a portata di mano.">
+<title>Quaderno di tedesco</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tedesco">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg2:#F6F0E8;--card:#FFFFFF;--glass:rgba(255,255,255,.74);--glassLine:rgba(255,255,255,.92);
+  --glassBar:rgba(250,245,238,.86);--line:rgba(90,62,36,.16);--ink:#241E18;--mute:#6F6357;
+  --acc:#A15C2E;--accSoft:#F6E7D8;--hot:#C0392F;--ok:#2F6B4F;--okSoft:#E3F0E9;--no:#B0343A;--noSoft:#FAE7E8;
+  --shadow:0 24px 48px -34px rgba(60,40,24,.5);--de:'Lora',Georgia,serif;--ui:'Manrope',system-ui,-apple-system,sans-serif;
+  --radius:22px;
+}
+*{box-sizing:border-box}html,body{margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--ui);color:var(--ink);font-size:16px;line-height:1.55;
+ background:radial-gradient(1000px 500px at 92% -10%,#F2E2D1 0%,rgba(242,226,209,0) 62%),radial-gradient(760px 420px at 0% 18%,#F5EADF 0%,rgba(245,234,223,0) 58%),linear-gradient(#F8F3EC,#FDFBF8);min-height:100vh;-webkit-tap-highlight-color:transparent;
+ padding-bottom:env(safe-area-inset-bottom)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='none' stroke='%23A15C2E' stroke-opacity='.10' stroke-width='1'%3E%3Cpath d='M0 40h240M0 90h240M0 140h240M0 190h240'/%3E%3Ccircle cx='196' cy='64' r='18'/%3E%3Ccircle cx='52' cy='166' r='11'/%3E%3C/g%3E%3C/svg%3E")}
+.page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 90px}
+a{color:inherit}button{font:inherit;color:inherit}
+
+header{position:sticky;top:0;z-index:20;margin:0 -16px 0;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;
+ background:var(--glassBar);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+ border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+header button.back{display:inline-flex;align-items:center;gap:6px;color:var(--acc);text-decoration:none;font-weight:600;font-size:14px;background:none;border:none;cursor:pointer;padding:0}
+header button.back svg{width:16px;height:16px}
+header .htitle{font-family:var(--ui);font-weight:800;font-size:16px}
+header .hb{display:flex;gap:6px}
+.ib{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--acc);display:grid;place-items:center;cursor:pointer;padding:0}
+.ib svg{width:18px;height:18px}
+.ib.on{background:var(--acc);color:#fff;border-color:transparent}
+.ib:disabled{opacity:.4;cursor:default}
+
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+ background:var(--card);border-radius:24px 24px 0 0;border-top:1px solid var(--line);box-shadow:0 -20px 50px -24px rgba(0,0,0,.35);
+ padding:18px 18px calc(env(safe-area-inset-bottom) + 22px);max-width:760px;margin:0 auto}
+.sheet.open{transform:translateY(0)}
+.sheet .grip{width:42px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 14px}
+.sheet h3{margin:0 0 4px;font-size:17px}
+.sheet p{margin:0 0 14px;font-size:13.5px;color:var(--mute)}
+.sheet select{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg2);color:var(--ink)}
+.sheet .row{display:flex;gap:8px;margin-top:12px}
+.scrim{position:fixed;inset:0;background:rgba(36,30,24,.28);z-index:29;opacity:0;pointer-events:none;transition:opacity .28s}
+.scrim.open{opacity:1;pointer-events:auto}
+
+.hero{padding:22px 0 4px}
+.meta{display:flex;align-items:baseline;gap:10px;color:var(--mute);font-size:13px;flex-wrap:wrap}
+.meta b{font-size:34px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.tag{font-size:12px;font-weight:700;color:var(--acc);background:var(--accSoft);padding:4px 10px;border-radius:999px}
+h1{font-family:var(--de);font-weight:700;font-size:clamp(28px,7vw,44px);line-height:1.15;margin:10px 0 6px;letter-spacing:-.01em}
+.hero p{margin:0;color:var(--mute);max-width:44ch}
+
+.avviso{margin:14px 0 0;border-radius:14px;padding:10px 13px;font-size:13.5px;line-height:1.5;background:var(--accSoft);color:var(--acc)}
+.avviso.no{background:var(--noSoft);color:var(--no)}
+
+.pick{display:flex;align-items:center;gap:9px;margin:16px 0 0}
+.pick label{font-size:12.5px;font-weight:700;color:var(--mute);white-space:nowrap}
+.pick select{flex:1;min-width:0;font:inherit;font-size:14px;padding:10px 12px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+
+nav.jump{position:sticky;top:calc(env(safe-area-inset-top) + 59px);z-index:15;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+ margin:18px -16px 22px;padding:8px 16px;background:var(--glassBar);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+nav.jump::-webkit-scrollbar{display:none}
+nav.jump a{white-space:nowrap;font-size:13px;font-weight:600;text-decoration:none;color:var(--acc);background:var(--accSoft);padding:6px 12px;border-radius:999px}
+
+section{margin:0 0 30px;scroll-margin-top:118px}
+.card{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glassLine);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 14px}
+.sh h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-.015em}
+.sh small{color:var(--mute);font-size:12.5px}
+
+.voc{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.v{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 12px 11px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.v:active{transform:scale(.98)}
+.v .n{position:absolute;top:8px;left:11px;font-size:10.5px;font-weight:800;color:var(--mute)}
+.v .de{font-family:var(--de);font-weight:600;font-size:20px;line-height:1.2;display:block;margin-top:11px}
+.v .it{display:block;font-size:12.5px;color:var(--mute);margin-top:5px;line-height:1.35}
+.v .sp{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:50%;background:var(--accSoft);color:var(--acc);display:grid;place-items:center}
+.v .sp svg{width:11px;height:11px}
+.v.play{border-color:var(--acc)}.v.play .sp{background:var(--acc);color:#fff}
+
+.fr{display:grid;gap:8px}
+.fr button{width:100%;font:inherit;color:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.fr .n{font-size:11px;font-weight:800;color:var(--mute);min-width:18px;flex:none}
+.fr .de{font-family:var(--de);font-weight:500;font-size:17px;flex:1;line-height:1.35}
+.fr .it{font-size:12.5px;color:var(--mute);text-align:right;max-width:40%}
+
+.gp{padding:16px 0;border-top:1px solid var(--line)}
+.gp:first-child{border-top:none;padding-top:0}
+.gp p.reg{margin:0;font-size:16px;line-height:1.65}
+.gp .ex{margin-top:12px;background:var(--accSoft);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.gp .ex .t{flex:1}
+.gp .ex .de{font-family:var(--de);font-weight:600;font-size:18px;line-height:1.35}
+.gp .ex .it{font-size:13px;color:var(--mute)}
+.gp .ex .sp{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;flex:none}
+.gp .ex .sp svg{width:14px;height:14px}
+.gp .pron{margin:10px 0 0;font-size:13.5px;color:var(--mute);line-height:1.6}
+.gp .pron b{color:var(--ink);font-weight:700}
+
+.dia{display:flex;flex-direction:column;gap:9px}
+.b{max-width:88%;display:flex;flex-direction:column;gap:1px;padding:10px 14px;border-radius:18px;cursor:pointer;border:1px solid var(--line);background:var(--card);font:inherit;text-align:left;color:inherit}
+.b.altro{align-self:flex-start;border-bottom-left-radius:6px}
+.b.studente{align-self:flex-end;background:var(--accSoft);border-color:transparent;border-bottom-right-radius:6px}
+.b .chi{font-size:11px;font-weight:700;color:var(--mute)}
+.b .de{font-family:var(--de);font-weight:500;font-size:17px;line-height:1.4}
+.b .it{font-size:12.5px;color:var(--mute)}
+.b.on{border-color:var(--acc);box-shadow:0 0 0 2px var(--accSoft)}
+.dia.noit .it{display:none}
+
+.btn{font:inherit;font-weight:700;font-size:14px;color:#fff;background:var(--acc);border:none;border-radius:999px;padding:10px 16px;cursor:pointer}
+.btn.o{background:var(--card);color:var(--acc);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+.flash{perspective:1200px;height:190px}
+.fc{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;cursor:pointer}
+.fc.f{transform:rotateY(180deg)}
+.fc>div{position:absolute;inset:0;border-radius:20px;display:grid;place-items:center;text-align:center;padding:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fc .front{background:var(--card);border:1px solid var(--line);font-family:var(--de);font-weight:600;font-size:clamp(21px,5.4vw,31px);line-height:1.3}
+.fc .back{background:var(--acc);color:#fff;transform:rotateY(180deg);font-size:19px;font-weight:600;line-height:1.4}
+.fc .front.rovescio{font-family:var(--ui);font-weight:600;font-size:clamp(18px,4.6vw,25px)}
+.fc .back.rovescio{font-family:var(--de);font-weight:600;font-size:clamp(20px,5vw,28px)}
+.fnav{display:flex;align-items:center;gap:10px;margin-top:12px}
+.fnav .bar{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.fnav .bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.fnav .cnt{font-size:12.5px;color:var(--mute);min-width:52px;text-align:center}
+.deckopt{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+.seg{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{font:inherit;font-size:13px;font-weight:600;white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:999px;padding:7px 13px;cursor:pointer}
+.seg button.on{background:var(--acc);color:#fff;border-color:transparent}
+.es{padding:16px 0;border-top:1px solid var(--line)}
+.es:first-child{border-top:none;padding-top:0}
+.es .cons{font-size:15.5px;line-height:1.55}
+.es .cons i{font-style:normal;color:var(--mute);font-weight:700;margin-right:6px}
+.es .frase{font-family:var(--de);font-weight:500;font-size:19px;margin-top:8px;background:var(--bg2);border-radius:12px;padding:10px 12px}
+.es textarea{width:100%;font:inherit;font-family:var(--de);font-size:17px;margin-top:10px;padding:11px 13px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);resize:vertical;min-height:52px}
+.opz{display:grid;gap:7px;margin-top:11px}
+.opz button{font:inherit;font-family:var(--de);font-weight:500;font-size:17px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:11px 14px;cursor:pointer;color:var(--ink)}
+.opz button.ok{background:var(--okSoft);border-color:var(--ok);color:var(--ok)}
+.opz button.no{background:var(--noSoft);border-color:var(--no);color:var(--no)}
+.opz button:disabled{cursor:default}
+.esito{margin-top:10px;font-size:14px;line-height:1.55;border-radius:12px;padding:10px 12px}
+.esito.ok{background:var(--okSoft);color:var(--ok)}
+.esito.no{background:var(--noSoft);color:var(--no)}
+.risp{margin-top:11px;background:var(--accSoft);border-radius:13px;padding:11px 13px;display:flex;gap:10px;align-items:center}
+.risp .t{flex:1;min-width:0}
+.risp .de{font-family:var(--de);font-weight:600;font-size:18px;line-height:1.35}
+.risp .it{font-size:13px;color:var(--mute);margin-top:3px}
+.risp .sp{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;flex:none;border:none;cursor:pointer}
+.risp .sp svg{width:14px;height:14px}
+.risp .sp:disabled{opacity:.4;cursor:default}
+.tua{margin-top:9px;font-size:13.5px;color:var(--mute);background:var(--bg2);border-radius:12px;padding:9px 12px;line-height:1.5}
+.tua b{font-family:var(--de);color:var(--ink);font-weight:600}
+.giud{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.score{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--mute)}
+.score b{color:var(--ink);font-size:22px;font-weight:800;letter-spacing:-.02em}
+.vuoto{font-size:13.5px;color:var(--mute);line-height:1.55}
+
+.lista{margin-top:14px;border-top:1px solid var(--line);padding-top:6px}
+.mazzo-riga{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.mazzo-riga:last-child{border-bottom:none}
+.mazzo-riga input[type=checkbox]{width:20px;height:20px;accent-color:var(--no);flex:none;margin:0}
+.mazzo-riga .num{font-size:12px;color:var(--mute);min-width:20px;font-weight:800}
+.mazzo-riga .t{flex:1;min-width:0}
+.mazzo-riga .de{font-family:var(--de);font-weight:500;font-size:16px;line-height:1.3}
+.mazzo-riga .it{font-size:12.5px;color:var(--mute)}
+.errori-box{margin-top:14px;background:var(--bg2);border-radius:14px;padding:12px 14px}
+.errori-box code{display:block;font-family:ui-monospace,SFMono-Regular,monospace;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:8px 0;word-break:break-word}
+
+.elenco-riga{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--line);padding:15px 0;cursor:pointer}
+.elenco-riga:last-child{border-bottom:none}
+.elenco-num{font-family:var(--ui);font-weight:800;font-size:13px;color:var(--acc);background:var(--accSoft);min-width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;padding:0 6px}
+.elenco-corpo{flex:1;min-width:0}
+.elenco-titolo{font-size:16px;font-weight:600}
+.elenco-sub{font-size:12.5px;color:var(--mute);margin-top:3px}
+.elenco-chev{color:var(--mute);flex:none}
+
+.riep-riga{padding:7px 0;font-size:14.5px;line-height:1.6}
+.riep-riga.barra{font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;color:var(--acc);white-space:pre-wrap}
+.prog{margin-top:6px}
+.prog-riga{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13.5px}
+.prog-riga .et{min-width:96px;color:var(--mute);font-weight:600}
+.prog-riga .bar{flex:1;height:8px;background:var(--accSoft);border-radius:4px;overflow:hidden}
+.prog-riga .bar i{display:block;height:100%;background:var(--acc);transition:width .4s}
+.prog-riga .n{font-variant-numeric:tabular-nums;font-weight:700;min-width:60px;text-align:right}
+.prossimi{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.7;color:var(--mute)}
+.prossimi b{color:var(--ink);font-weight:700}
+
+footer{text-align:center;color:var(--mute);font-size:12.5px;padding:18px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:720px){.page{padding:0 24px 100px}.voc{grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}}
+</style>
+</head>
+<body>
+<header>
+  <button class="back" id="btn-back" style="visibility:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg><span id="back-label">Indietro</span></button>
+  <span class="htitle" id="htitle">Quaderno di tedesco</span>
+  <div class="hb">
+    <button class="ib" id="btn-voce" aria-label="Scegli la voce tedesca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9v6h4l5 4V5L8 9H4zM17 8a5 5 0 010 8"/></svg></button>
+    <button class="ib" id="btn-stop" aria-label="Ferma l'audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+    <button class="ib" id="btn-refresh" aria-label="Aggiorna"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v6h-6"/></svg></button>
+  </div>
+</header>
+
+<div class="page" id="app"></div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-label="Voce tedesca">
+  <div class="grip"></div>
+  <h3>Voce tedesca</h3>
+  <p id="voce-nota">Scegli quale voce usare per l'ascolto. Resta salvata sul telefono.</p>
+  <select id="voce-sel"></select>
+  <div class="row"><button class="btn" id="voce-prova">Prova · Guten Tag</button><button class="btn o" id="voce-chiudi">Chiudi</button></div>
+</div>
+
+<script>
+/* =========================================================
+   Quaderno di tedesco — sola lettura su Supabase (schema "tedesco")
+   ========================================================= */
+const SUPABASE_URL      = "https://wnfeaoyqtcdkpyawgdqh.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InduZmVhb3lxdGNka3B5YXdnZHFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyMTg1MDQsImV4cCI6MjEwNDc5NDUwNH0.UFBaJFG35UcnhvK-tdU_aKjSzPs-x13Eon5f-kWTWWQ";
+const PROFILO           = "tedesco";
+
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 9v6h4l5 4V5L8 9H4zM16 8a5 5 0 010 8"/></svg>';
+
+function dataItaliana(iso){
+  if(!iso) return "";
+  const d=new Date(String(iso).slice(0,10)+"T00:00:00");
+  if(isNaN(d)) return String(iso);
+  return d.toLocaleDateString("it-IT",{day:"numeric",month:"long",year:"numeric"});
+}
+
+/* ---------- sintesi vocale tedesca ---------- */
+let vociDe=[],voceDe=null,ttsDisponibile=false;
+const punteggio=v=>{const n=(v.name||'').toLowerCase();let p=0;
+ if(/premium|enhanced|neural|natural|wavenet|siri/.test(n))p+=40;
+ if(/anna|petra|markus|helena|yannick|viktor|katja|conrad|google/.test(n))p+=20;
+ if(/compact|eloquence|espeak/.test(n))p-=30;
+ if(v.localService)p+=5;return p;};
+function trovaVoci(){
+  if(!('speechSynthesis' in window)){aggiornaSheetVoce();return;}
+  vociDe=speechSynthesis.getVoices()
+    .filter(v=>(v.lang||'').toLowerCase().replace('_','-').startsWith('de'))
+    .sort((a,b)=>punteggio(b)-punteggio(a));
+  let salvata=null;try{salvata=localStorage.getItem('voceDe')}catch(e){}
+  voceDe=vociDe.find(v=>v.name===salvata)||vociDe[0]||null;
+  ttsDisponibile=!!voceDe;
+  aggiornaSheetVoce();
+  document.querySelectorAll('[data-tts]').forEach(b=>{
+    b.disabled=!ttsDisponibile;
+    if(!ttsDisponibile) b.title="Nessuna voce tedesca installata sul dispositivo";
+  });
+}
+function aggiornaSheetVoce(){
+  const sel=document.getElementById('voce-sel'),nota=document.getElementById('voce-nota');
+  if(!sel||!nota) return;
+  sel.innerHTML='';
+  if(!vociDe.length){
+    sel.innerHTML='<option>Nessuna voce tedesca installata</option>';sel.disabled=true;
+    nota.textContent="Nessuna voce tedesca (de-DE) trovata su questo dispositivo: i pulsanti di ascolto restano disattivati. Aggiungila dalle impostazioni vocali del sistema, poi riapri questo pannello.";
+    document.getElementById('voce-prova').disabled=true;
+    return;
+  }
+  sel.disabled=false;document.getElementById('voce-prova').disabled=false;
+  nota.textContent="Scegli quale voce usare per l'ascolto. Resta salvata sul telefono.";
+  vociDe.forEach(v=>{const o=document.createElement('option');o.value=v.name;
+    o.textContent=v.name+' · '+v.lang+(v.localService?'':' (online)');
+    if(voceDe&&v.name===voceDe.name)o.selected=true;sel.appendChild(o);});
+}
+if('speechSynthesis' in window){trovaVoci();speechSynthesis.onvoiceschanged=trovaVoci;}
+else{aggiornaSheetVoce();}
+
+let velocitaDe=0.9;
+try{const v=localStorage.getItem("velocitaDe");if(v)velocitaDe=parseFloat(v)||0.9;}catch(e){}
+function parla(t,cb){
+  if(!('speechSynthesis' in window)||!t)return;
+  if(!vociDe.length)trovaVoci();
+  if(!voceDe)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(String(t));
+  u.lang=voceDe.lang||'de-DE';u.rate=velocitaDe;u.pitch=1;u.voice=voceDe;
+  if(cb)u.onend=cb;
+  speechSynthesis.speak(u);
+}
+const sheet=document.getElementById('sheet'),scrim=document.getElementById('scrim');
+const apriSheet=v=>{sheet.classList.toggle('open',v);scrim.classList.toggle('open',v);
+  document.getElementById('btn-voce').classList.toggle('on',v);if(v)trovaVoci();};
+document.getElementById('btn-voce').onclick=()=>apriSheet(!sheet.classList.contains('open'));
+scrim.onclick=()=>apriSheet(false);
+document.getElementById('voce-chiudi').onclick=()=>apriSheet(false);
+document.getElementById('voce-sel').onchange=e=>{
+  voceDe=vociDe.find(v=>v.name===e.target.value)||voceDe;
+  try{localStorage.setItem('voceDe',e.target.value)}catch(err){}
+  parla('Guten Tag');
+};
+document.getElementById('voce-prova').onclick=()=>parla('Guten Tag, wie geht es Ihnen?');
+document.getElementById('btn-stop').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel();};
+
+/* ---------- accesso ai dati (sola lettura) ---------- */
+let offline=false, cache={lezioni:null,ripassi:null,stato:null};
+
+async function apiGet(risorsa,query,chiave){
+  const url=`${SUPABASE_URL}/rest/v1/${risorsa}?${query}`;
+  try{
+    const res=await fetch(url,{headers:{
+      apikey:SUPABASE_ANON_KEY,
+      Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
+      "Accept-Profile":PROFILO
+    }});
+    if(!res.ok){
+      const corpo=await res.text().catch(()=>"");
+      throw new Error(`HTTP ${res.status} — ${corpo.slice(0,180)}`);
+    }
+    const dati=await res.json();
+    try{localStorage.setItem("cache:"+chiave,JSON.stringify({t:Date.now(),dati}));}catch(e){}
+    return dati;
+  }catch(e){
+    let salvato=null;
+    try{salvato=JSON.parse(localStorage.getItem("cache:"+chiave)||"null");}catch(_){}
+    if(salvato&&salvato.dati){ offline=true; return salvato.dati; }
+    throw e;
+  }
+}
+const caricaLezioni=f=>(!f&&cache.lezioni)?Promise.resolve(cache.lezioni):
+  apiGet("lezioni","select=numero,data,tipo,titolo,contenuto,esercizi,riepilogo,curriculum:curriculum_id(livello,blocco)&order=numero.desc","lezioni")
+    .then(d=>cache.lezioni=d);
+const caricaRipassi=f=>(!f&&cache.ripassi)?Promise.resolve(cache.ripassi):
+  apiGet("ripassi","select=id,data,da_lezione,a_lezione,deck,contenuto&order=data.desc,id.desc","ripassi")
+    .then(d=>cache.ripassi=d);
+const caricaStato=f=>(!f&&cache.stato)?Promise.resolve(cache.stato):
+  apiGet("stato","select=*&limit=1","stato").then(d=>cache.stato=(d&&d[0])||null);
+
+/* ---------- mazzi con numerazione canonica ---------- */
+/* vocaboli 1..V, poi frasi V+1..V+F — identica alla vista tedesco.flashcard */
+function mazzoDiLezione(lez){
+  if(!lez) return [];
+  const c=lez.contenuto||{};
+  const voc=Array.isArray(c.vocaboli)?c.vocaboli:[];
+  const fra=Array.isArray(c.frasi)?c.frasi:[];
+  return [
+    ...voc.map((v,i)=>({card_n:i+1,          de:v&&v.de,it:v&&v.it,tipo:"vocabolo"})),
+    ...fra.map((f,i)=>({card_n:voc.length+i+1,de:f&&f.de,it:f&&f.it,tipo:"frase"}))
+  ].filter(c=>c.de||c.it);
+}
+
+/* ---------- componente flashcard riutilizzabile ---------- */
+function creaDeckHTML(pfx,opts){
+  opts=opts||{};
+  return `
+  <div class="flash"><div class="fc" id="${pfx}-fc">
+    <div class="front" id="${pfx}-ff"></div><div class="back" id="${pfx}-fb"></div>
+  </div></div>
+  <div class="fnav">
+    <button class="btn o" id="${pfx}-prev">Indietro</button>
+    <div class="bar"><i id="${pfx}-bar"></i></div>
+    <span class="cnt" id="${pfx}-cnt"></span>
+    <button class="btn o" id="${pfx}-spk" data-tts>Ascolta</button>
+    <button class="btn" id="${pfx}-next">Avanti</button>
+  </div>
+  <div class="deckopt">
+    <button class="btn o" id="${pfx}-dir">Tedesco → Italiano</button>
+    ${opts.flag?`<button class="btn o" id="${pfx}-mark">Segna sbagliata</button>`:""}
+  </div>
+  ${opts.flag?`
+  <div class="lista" id="${pfx}-lista"></div>
+  <div class="errori-box">
+    <div class="vuoto">Comando da incollare in chat:</div>
+    <code id="${pfx}-cmd"></code>
+    <button class="btn o" id="${pfx}-copia">Copia comando errori</button>
+  </div>`:""}`;
+}
+
+function attachDeck(pfx,mazzo,opts){
+  opts=opts||{};
+  /* Quale numero identifica la carta nel comando errori:
+     - mazzi di una lezione  -> card_n (numerazione canonica della lezione)
+     - mazzo di un ripasso   -> n      (progressivo del ripasso: card_n si ripeterebbe
+                                        tra lezioni diverse e renderebbe il comando ambiguo) */
+  const campo=opts.campoId||"card_n";
+  const idDi=c=>{const v=c[campo];return v!=null?v:(c.card_n!=null?c.card_n:c.n);};
+  let i=0,girata=false,inverso=false;
+  const sbagliate=new Set();
+  const el=s=>document.getElementById(pfx+"-"+s);
+
+  const testoFronte=c=>inverso?(c.it||"—"):(c.de||"—");
+  const testoRetro =c=>inverso?(c.de||"—"):(c.it||"—");
+
+  function disegna(){
+    const c=mazzo[i];
+    el("ff").textContent=testoFronte(c);
+    el("fb").textContent=testoRetro(c);
+    el("ff").classList.toggle("rovescio",inverso);
+    el("fb").classList.toggle("rovescio",inverso);
+    el("fc").classList.toggle("f",girata);
+    el("cnt").textContent=`${idDi(c)} · ${i+1}/${mazzo.length}`;
+    el("bar").style.width=((i+1)/mazzo.length*100)+"%";
+    el("spk").disabled=!ttsDisponibile||!c.de;
+    if(opts.flag) el("mark").classList.toggle("o",!sbagliate.has(idDi(mazzo[i])));
+  }
+  function aggiornaComando(){
+    if(!opts.flag) return;
+    const n=[...sbagliate].sort((a,b)=>a-b);
+    el("cmd").textContent=`${opts.comando}: ${n.length?n.join(", "):"nessuno"}`;
+    el("lista").querySelectorAll("input[type=checkbox]").forEach(chk=>{
+      chk.checked=sbagliate.has(parseInt(chk.dataset.id,10));
+    });
+  }
+  el("fc").addEventListener("click",()=>{girata=!girata;disegna();});
+  el("prev").addEventListener("click",()=>{i=(i-1+mazzo.length)%mazzo.length;girata=false;disegna();});
+  el("next").addEventListener("click",()=>{i=(i+1)%mazzo.length;girata=false;disegna();});
+  el("spk").addEventListener("click",()=>parla(mazzo[i].de));
+  el("dir").addEventListener("click",()=>{
+    inverso=!inverso;girata=false;
+    el("dir").textContent=inverso?"Italiano → Tedesco":"Tedesco → Italiano";
+    disegna();
+  });
+
+  if(opts.flag){
+    el("lista").innerHTML=mazzo.map(c=>`
+      <label class="mazzo-riga">
+        <input type="checkbox" data-id="${idDi(c)}">
+        <span class="num">${idDi(c)}</span>
+        <span class="t"><span class="de">${esc(c.de||"—")}</span><span class="it">${esc(c.it||"")}</span></span>
+      </label>`).join("");
+    el("lista").querySelectorAll("input[type=checkbox]").forEach(chk=>{
+      chk.addEventListener("change",()=>{
+        const id=parseInt(chk.dataset.id,10);
+        if(chk.checked) sbagliate.add(id); else sbagliate.delete(id);
+        aggiornaComando();disegna();
+      });
+    });
+    el("mark").addEventListener("click",()=>{
+      const id=idDi(mazzo[i]);
+      if(sbagliate.has(id)) sbagliate.delete(id); else sbagliate.add(id);
+      aggiornaComando();disegna();
+    });
+    el("copia").addEventListener("click",()=>{
+      const testo=el("cmd").textContent;
+      const fatto=()=>{el("copia").textContent="Copiato ✓";setTimeout(()=>{el("copia").textContent="Copia comando errori";},1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(testo).then(fatto).catch(()=>ripiegoCopia(testo,fatto));
+      } else ripiegoCopia(testo,fatto);
+    });
+    aggiornaComando();
+  }
+  disegna();
+}
+function ripiegoCopia(testo,ok){
+  const ta=document.createElement("textarea");
+  ta.value=testo;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");ok();}catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---------- motore esercizi ---------- */
+const normalizza=s=>String(s??"").toLowerCase().replace(/[.,;:!?¡¿"'«»]/g,"").replace(/\s+/g," ").trim();
+
+function renderEsercizio(e,i){
+  const cons=`<div class="cons"><i>${i+1}.</i>${esc(e.consegna||"")}</div>`;
+  if(e.tipo==="scelta"){
+    return `<div class="es" data-idx="${i}" data-tipo="scelta">${cons}
+      <div class="opz">${(e.opzioni||[]).map((op,j)=>`<button data-j="${j}">${esc(op)}</button>`).join("")}</div>
+    </div>`;
+  }
+  if(e.tipo==="correzione"){
+    return `<div class="es" data-idx="${i}" data-tipo="correzione">${cons}
+      ${e.frase?`<div class="frase">${esc(e.frase)}</div>`:""}
+      <textarea placeholder="Scrivi qui la frase corretta…" aria-label="La tua correzione"></textarea>
+      <div class="btnrow"><button class="btn mostra-btn">Mostra la correzione</button></div>
+    </div>`;
+  }
+  return `<div class="es" data-idx="${i}" data-tipo="produzione">${cons}
+    <textarea placeholder="Scrivi qui la tua risposta in tedesco…" aria-label="La tua risposta"></textarea>
+    <div class="btnrow"><button class="btn mostra-btn">Mostra la risposta</button></div>
+  </div>`;
+}
+
+function attachEsercizi(container,esercizi,scoreEls){
+  const stato={giusti:0,tot:esercizi.length};
+  const aggiorna=()=>{if(scoreEls){scoreEls.sc.textContent=stato.giusti;scoreEls.sct.textContent="su "+stato.tot;}};
+  aggiorna();
+  container.querySelectorAll(".es").forEach(el=>{
+    const e=esercizi[parseInt(el.dataset.idx,10)];
+    let chiuso=false;
+    const registra=ok=>{if(chiuso)return;chiuso=true;if(ok)stato.giusti++;aggiorna();};
+
+    if(el.dataset.tipo==="scelta"){
+      const bottoni=[...el.querySelectorAll(".opz button")];
+      bottoni.forEach((btn,j)=>btn.addEventListener("click",()=>{
+        if(chiuso) return;
+        const ok=j===e.corretta;
+        bottoni.forEach(b=>b.disabled=true);
+        if(bottoni[e.corretta]) bottoni[e.corretta].classList.add("ok");
+        if(!ok) btn.classList.add("no");
+        const box=document.createElement("div");
+        box.className="esito "+(ok?"ok":"no");
+        box.textContent=(ok?"Giusto. ":"Non ci siamo. ")+(e.spiegazione||"");
+        el.appendChild(box);
+        registra(ok);
+      }));
+      return;
+    }
+
+    const mostra=el.querySelector(".mostra-btn");
+    const area=el.querySelector("textarea");
+    mostra.addEventListener("click",()=>{
+      mostra.closest(".btnrow").remove();
+      if(area) area.readOnly=true;
+      const tua=area?area.value.trim():"";
+
+      const r=document.createElement("div");r.className="risp";
+      r.innerHTML=`<div class="t"><div class="de">${esc(e.risposta||"—")}</div>${e.spiegazione?`<div class="it">${esc(e.spiegazione)}</div>`:""}</div>
+        <button class="sp" data-tts aria-label="Ascolta la risposta">${SP}</button>`;
+      const spk=r.querySelector(".sp");
+      spk.disabled=!ttsDisponibile||!e.risposta;
+      spk.addEventListener("click",()=>parla(e.risposta));
+      el.appendChild(r);
+      if(ttsDisponibile) parla(e.risposta);
+
+      if(tua){
+        const conf=document.createElement("div");conf.className="tua";
+        const uguale=normalizza(tua)===normalizza(e.risposta);
+        conf.innerHTML=`La tua risposta: <b>${esc(tua)}</b><br>${uguale?"Coincide con la soluzione.":"Diversa dalla soluzione: confrontale parola per parola."}`;
+        el.appendChild(conf);
+      }
+
+      const g=document.createElement("div");g.className="giud";
+      const si=document.createElement("button");si.className="btn o";si.textContent="L'avevo giusta";
+      const no=document.createElement("button");no.className="btn o";no.textContent="L'avevo sbagliata";
+      si.addEventListener("click",()=>{registra(true);g.innerHTML='<span class="esito ok" style="margin:0">Segnata come giusta.</span>';});
+      no.addEventListener("click",()=>{registra(false);g.innerHTML='<span class="esito no" style="margin:0">Segnata come da ripassare.</span>';});
+      g.appendChild(si);g.appendChild(no);el.appendChild(g);
+    });
+  });
+}
+
+/* ---------- routing ---------- */
+function currentRoute(){
+  const h=location.hash.replace(/^#\/?/,"");
+  if(h.startsWith("lezione/")) return {view:"lezione",numero:parseInt(h.split("/")[1],10)};
+  if(h==="ripassi") return {view:"ripassi"};
+  if(h.startsWith("ripasso/")) return {view:"ripasso",id:parseInt(h.split("/")[1],10)};
+  return {view:"oggi"};
+}
+function setHeader(back,label,titolo){
+  const b=document.getElementById('btn-back');
+  b.style.visibility=back?'visible':'hidden';
+  document.getElementById('back-label').textContent=label||'';
+  document.getElementById('htitle').textContent=titolo||'Quaderno di tedesco';
+  b.onclick=back||null;
+}
+function bannerOffline(){
+  return offline?`<div class="avviso">Sei offline: stai vedendo l'ultima copia scaricata. Tocca ⟳ in alto quando torni online.</div>`:"";
+}
+
+/* ---------- schermata: lezione ---------- */
+function renderLezione(lez,dati,stato){
+  const c=lez.contenuto||{};
+  const vocaboli=Array.isArray(c.vocaboli)?c.vocaboli:[];
+  const frasi=Array.isArray(c.frasi)?c.frasi:[];
+  const grammatica=Array.isArray(c.grammatica)?c.grammatica:[];
+  const dialogo=Array.isArray(c.dialogo)?c.dialogo:[];
+  const esercizi=Array.isArray(lez.esercizi)?lez.esercizi:[];
+  const mazzo=mazzoDiLezione(lez);
+  const livello=lez.curriculum&&lez.curriculum.livello;
+
+  const ripassi=[3,10,30]
+    .map(d=>({delta:d,numero:lez.numero-d,lez:dati.find(l=>l.numero===lez.numero-d)}))
+    .filter(r=>r.lez&&mazzoDiLezione(r.lez).length);
+
+  const ancore=[];
+  if(vocaboli.length)  ancore.push('<a href="#vocaboli">Vocaboli</a>');
+  if(frasi.length)     ancore.push('<a href="#frasi">Frasi</a>');
+  if(grammatica.length)ancore.push('<a href="#grammatica">Grammatica</a>');
+  if(dialogo.length)   ancore.push('<a href="#dialogo">Dialogo</a>');
+  if(mazzo.length)     ancore.push('<a href="#flashcard">Flashcard</a>');
+  ancore.push('<a href="#esercizi">Esercizi</a>');
+  if(ripassi.length)   ancore.push('<a href="#ripasso-mirato">Ripasso mirato</a>');
+  ancore.push('<a href="#riepilogo">Riepilogo</a>');
+
+  const opzioni=dati.map(l=>
+    `<option value="${l.numero}"${l.numero===lez.numero?" selected":""}>${l.numero} · ${esc(l.titolo)}</option>`).join("");
+
+  const vuotoTotale=!vocaboli.length&&!frasi.length&&!grammatica.length&&!dialogo.length&&!esercizi.length;
+
+  return `
+    <div class="hero">
+      <div class="meta">
+        <b>${String(lez.numero).padStart(2,"0")}</b>
+        <span class="tag">${lez.tipo==="GRAMMATICA"?"Grammatica":"Situazione"}</span>
+        ${livello?`<span class="tag">${esc(livello)}</span>`:""}
+        <span>${dataItaliana(lez.data)}</span>
+      </div>
+      <h1>${esc(lez.titolo)}</h1>
+      ${bannerOffline()}
+      ${vuotoTotale?`<div class="avviso">Questa lezione non ha ancora contenuti salvati.</div>`:""}
+      <div class="pick">
+        <label for="sel-lezione">Lezione</label>
+        <select id="sel-lezione">${opzioni}</select>
+      </div>
+      <div class="btnrow"><button class="btn o" id="btn-ripassi">Ripassi generali →</button></div>
+    </div>
+
+    <nav class="jump">${ancore.join("")}</nav>
+
+    ${vocaboli.length?`<section id="vocaboli"><div class="card">
+      <div class="sh"><h2>Vocaboli</h2><small>tocca per ascoltare</small></div>
+      <div class="voc">${vocaboli.map((v,i)=>`
+        <button class="v" data-speak="${esc(v&&v.de)}">
+          <span class="n">${i+1}</span>
+          <span class="de">${esc(v&&v.de)}</span>
+          <span class="it">${esc(v&&v.it)}</span>
+          <span class="sp">${SP}</span>
+        </button>`).join("")}</div>
+    </div></section>`:""}
+
+    ${frasi.length?`<section id="frasi"><div class="card">
+      <div class="sh"><h2>Frasi</h2><small>numerate da ${vocaboli.length+1}</small></div>
+      <div class="fr">${frasi.map((f,i)=>`
+        <button data-speak="${esc(f&&f.de)}">
+          <span class="n">${vocaboli.length+i+1}</span>
+          <span class="de">${esc(f&&f.de)}</span>
+          <span class="it">${esc(f&&f.it)}</span>
+        </button>`).join("")}</div>
+    </div></section>`:""}
+
+    ${grammatica.length?`<section id="grammatica"><div class="card">
+      <div class="sh"><h2>Grammatica</h2></div>
+      <div>${renderGrammatica(grammatica)}</div>
+    </div></section>`:""}
+
+    ${dialogo.length?`<section id="dialogo"><div class="card">
+      <div class="sh"><h2>Dialogo</h2><small>tocca una battuta</small></div>
+      <div class="btnrow" style="margin:0 0 14px">
+        <button class="btn" id="play-dialogo" data-tts>Riproduci tutto</button>
+        <button class="btn o" id="hide-it">Nascondi italiano</button>
+        <button class="btn o" id="slow-tog">Lento 0.7×</button>
+      </div>
+      <div class="dia" id="dia">${dialogo.map((b,i)=>`
+        <button class="b ${b&&b.chi==="studente"?"studente":"altro"}" data-i="${i}">
+          <span class="chi">${b&&b.chi==="studente"?"tu":esc((b&&b.chi)||"—")}</span>
+          <span class="de">${esc(b&&b.de)}</span>
+          <span class="it">${esc(b&&b.it)}</span>
+        </button>`).join("")}</div>
+    </div></section>`:""}
+
+    ${mazzo.length?`<section id="flashcard"><div class="card">
+      <div class="sh"><h2>Flashcard</h2><small>${mazzo.length} carte · tocca per girare</small></div>
+      <div id="deck-lezione"></div>
+    </div></section>`:""}
+
+    <section id="esercizi"><div class="card">
+      <div class="sh"><h2>Esercizi</h2></div>
+      <div id="ex-wrap"></div>
+      <div class="score"><span>Risposte corrette</span><span><b id="ex-sc">0</b> <span id="ex-sct"></span></span></div>
+    </div></section>
+
+    ${ripassi.length?`<section id="ripasso-mirato"><div class="card">
+      <div class="sh"><h2>Ripasso mirato</h2><small>lezioni precedenti</small></div>
+      <div class="seg" id="rip-seg">${ripassi.map((r,i)=>
+        `<button data-i="${i}" class="${i?'':'on'}">L.${r.numero}</button>`).join("")}</div>
+      <div id="rip-wrap"></div>
+    </div></section>`:""}
+
+    <section id="riepilogo"><div class="card">
+      <div class="sh"><h2>Riepilogo percorso</h2></div>
+      <div id="riep-wrap">${renderRiepilogoPercorso(lez,dati,stato)}</div>
+    </div></section>
+
+    <footer>Quaderno di tedesco · lezione ${lez.numero}</footer>`;
+}
+
+function renderGrammatica(grammatica){
+  return grammatica.map(p=>{
+    if(p==null) return "";
+    if(typeof p==="string") return `<div class="gp"><p class="reg">${esc(p)}</p></div>`;
+    return `<div class="gp">
+      <p class="reg">${esc(p.regola)}</p>
+      ${p.esempio_de?`<div class="ex" data-speak="${esc(p.esempio_de)}">
+        <div class="t"><div class="de">${esc(p.esempio_de)}</div>${p.esempio_it?`<div class="it">${esc(p.esempio_it)}</div>`:""}</div>
+        <div class="sp">${SP}</div></div>`:""}
+      ${p.pronuncia?`<p class="pron"><b>Pronuncia</b> — ${esc(p.pronuncia)}</p>`:""}
+    </div>`;
+  }).join("");
+}
+
+function barra(fatti,totale,celle){
+  celle=celle||14;
+  const q=totale>0?Math.round(fatti/totale*celle):0;
+  return "█".repeat(q)+"░".repeat(Math.max(0,celle-q));
+}
+function renderRiepilogoPercorso(lez,dati,stato){
+  const righe=(Array.isArray(lez.riepilogo)&&lez.riepilogo.length)
+    ? lez.riepilogo
+    : ((dati[0]&&Array.isArray(dati[0].riepilogo))?dati[0].riepilogo:[]);
+  const testo=righe.length
+    ? righe.map(r=>{
+        const isBarra=/[█░]/.test(String(r))||String(r).trim().startsWith("[");
+        return `<div class="riep-riga${isBarra?" barra":""}">${esc(r)}</div>`;
+      }).join("")
+    : `<div class="vuoto">Nessun riepilogo salvato per questa lezione.</div>`;
+
+  if(!stato) return testo+`<div class="vuoto" style="margin-top:12px">Avanzamento non disponibile.</div>`;
+
+  const pct=(a,b)=>b>0?Math.round(a/b*100):0;
+  return testo+`
+    <div class="prog">
+      <div class="prog-riga"><span class="et">Grammatica</span>
+        <span class="bar"><i style="width:${pct(stato.grammatica_fatte,stato.grammatica_totale)}%"></i></span>
+        <span class="n">${stato.grammatica_fatte}/${stato.grammatica_totale}</span></div>
+      <div class="prog-riga"><span class="et">Situazioni</span>
+        <span class="bar"><i style="width:${pct(stato.situazioni_fatte,stato.situazioni_totale)}%"></i></span>
+        <span class="n">${stato.situazioni_fatte}/${stato.situazioni_totale}</span></div>
+      <div class="prog-riga"><span class="et">Totale</span>
+        <span class="bar"><i style="width:${pct(stato.completati,stato.totale)}%"></i></span>
+        <span class="n">${stato.completati}/${stato.totale}</span></div>
+      <div class="riep-riga barra">${barra(stato.completati,stato.totale,20)}  ${pct(stato.completati,stato.totale)}%</div>
+    </div>
+    <div class="prossimi">
+      ${stato.prossima_grammatica?`Prossima grammatica — <b>${esc(stato.prossima_grammatica)}</b>${stato.prossima_grammatica_livello?` (${esc(stato.prossima_grammatica_livello)})`:""}<br>`:""}
+      ${stato.prossima_situazione?`Prossima situazione — <b>${esc(stato.prossima_situazione)}</b>${stato.prossima_situazione_livello?` (${esc(stato.prossima_situazione_livello)})`:""}<br>`:""}
+      Lezioni scritte: <b>${stato.contatore}</b> · In coda di ripasso: <b>${stato.in_coda_ripasso}</b>
+    </div>`;
+}
+
+function attachLezione(lez,dati){
+  const c=lez.contenuto||{};
+  const dialogo=Array.isArray(c.dialogo)?c.dialogo:[];
+  const esercizi=Array.isArray(lez.esercizi)?lez.esercizi:[];
+  const mazzo=mazzoDiLezione(lez);
+
+  document.getElementById("sel-lezione")?.addEventListener("change",e=>{
+    location.hash=`#/lezione/${e.target.value}`;
+  });
+  document.getElementById("btn-ripassi")?.addEventListener("click",()=>{location.hash="#/ripassi";});
+
+  document.querySelectorAll("[data-speak]").forEach(el=>{
+    el.addEventListener("click",ev=>{
+      ev.stopPropagation();
+      parla(el.dataset.speak);
+      if(el.classList.contains("v")){
+        document.querySelectorAll(".v").forEach(x=>x.classList.remove("play"));
+        el.classList.add("play");setTimeout(()=>el.classList.remove("play"),2200);
+      }
+    });
+  });
+
+  const dia=document.getElementById("dia");
+  if(dia){
+    dia.querySelectorAll(".b").forEach(b=>b.addEventListener("click",()=>{
+      dia.querySelectorAll(".b").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on");
+      parla((dialogo[b.dataset.i]||{}).de);
+    }));
+    document.getElementById("hide-it").addEventListener("click",e=>{
+      const nascosto=dia.classList.toggle("noit");
+      e.target.textContent=nascosto?"Mostra italiano":"Nascondi italiano";
+    });
+    const slow=document.getElementById("slow-tog");
+    const aggiornaSlow=()=>{
+      const lento=velocitaDe<0.85;
+      slow.textContent=lento?"Normale 0.9×":"Lento 0.7×";
+      slow.classList.toggle("o",!lento);
+    };
+    slow.addEventListener("click",()=>{
+      velocitaDe=velocitaDe<0.85?0.9:0.7;
+      try{localStorage.setItem("velocitaDe",String(velocitaDe));}catch(e){}
+      aggiornaSlow();
+    });
+    aggiornaSlow();
+    const play=document.getElementById("play-dialogo");
+    play.disabled=!ttsDisponibile;
+    play.addEventListener("click",()=>{
+      let i=0;const bs=dia.querySelectorAll(".b");
+      const step=()=>{
+        if(i>=dialogo.length){bs.forEach(x=>x.classList.remove("on"));return;}
+        bs.forEach(x=>x.classList.remove("on"));bs[i].classList.add("on");
+        parla((dialogo[i]||{}).de,()=>{i++;setTimeout(step,320);});
+      };
+      step();
+    });
+  }
+
+  if(mazzo.length){
+    document.getElementById("deck-lezione").innerHTML=creaDeckHTML("dl",{});
+    attachDeck("dl",mazzo,{campoId:"card_n"});
+  }
+
+  const eswrap=document.getElementById("ex-wrap");
+  const scoreEls={sc:document.getElementById("ex-sc"),sct:document.getElementById("ex-sct")};
+  if(!esercizi.length){
+    eswrap.innerHTML=`<div class="vuoto">Nessun esercizio salvato per questa lezione.</div>`;
+    scoreEls.sct.textContent="su 0";
+  } else {
+    eswrap.innerHTML=esercizi.map((e,i)=>renderEsercizio(e,i)).join("");
+    attachEsercizi(eswrap,esercizi,scoreEls);
+  }
+
+  const seg=document.getElementById("rip-seg");
+  if(seg){
+    const blocchi=[3,10,30]
+      .map(d=>({numero:lez.numero-d,lez:dati.find(l=>l.numero===lez.numero-d)}))
+      .filter(r=>r.lez&&mazzoDiLezione(r.lez).length);
+    const wrap=document.getElementById("rip-wrap");
+    const mostra=i=>{
+      const b=blocchi[i];
+      wrap.innerHTML=creaDeckHTML("rip"+i,{flag:true});
+      attachDeck("rip"+i,mazzoDiLezione(b.lez),{flag:true,campoId:"card_n",comando:`ERRORI lezione ${b.numero}`});
+      trovaVoci();
+    };
+    seg.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+      seg.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+      btn.classList.add("on");
+      mostra(parseInt(btn.dataset.i,10));
+    }));
+    mostra(0);
+  }
+}
+
+/* ---------- schermata: elenco ripassi ---------- */
+function renderElencoRipassi(dati){
+  if(!dati.length) return `<div class="hero"><h1>Ripassi generali</h1>${bannerOffline()}
+    <p>Nessun ripasso generale salvato ancora.</p></div>`;
+  const righe=dati.map(r=>`
+    <button class="elenco-riga" data-id="${r.id}">
+      <span class="elenco-num">${r.da_lezione!=null&&r.a_lezione!=null?`${r.da_lezione}–${r.a_lezione}`:"·"}</span>
+      <span class="elenco-corpo">
+        <span class="elenco-titolo">${r.da_lezione!=null&&r.a_lezione!=null?`Lezioni ${r.da_lezione}–${r.a_lezione}`:"Ripasso"}</span>
+        <div class="elenco-sub">${dataItaliana(r.data)} · ${(r.deck||[]).length} carte</div>
+      </span>
+      <span class="elenco-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span>
+    </button>`).join("");
+  return `<div class="hero"><h1>Ripassi generali</h1>${bannerOffline()}
+    <p>Tutti i ripassi salvati, dal più recente.</p></div><div class="card">${righe}</div>`;
+}
+
+/* ---------- schermata: singolo ripasso ---------- */
+function renderRipasso(r){
+  const c=r.contenuto||{};
+  const deck=Array.isArray(r.deck)?r.deck:[];
+  const lezRip=Array.isArray(c.lezioni_ripassate)?c.lezioni_ripassate:[];
+  const gram=Array.isArray(c.grammatica_coperta)?c.grammatica_coperta:[];
+  const riep=Array.isArray(c.riepilogo)?c.riepilogo:[];
+  return `
+    <div class="hero">
+      <div class="meta"><span class="tag">Ripasso generale</span><span>${dataItaliana(r.data)}</span></div>
+      <h1>${r.da_lezione!=null&&r.a_lezione!=null?`Lezioni ${r.da_lezione}–${r.a_lezione}`:"Ripasso"}</h1>
+      ${bannerOffline()}
+    </div>
+
+    ${lezRip.length?`<section><div class="card"><div class="sh"><h2>Lezioni ripassate</h2></div>
+      ${lezRip.map(l=>`<div class="riep-riga">${esc(l)}</div>`).join("")}</div></section>`:""}
+
+    ${gram.length?`<section><div class="card"><div class="sh"><h2>Grammatica coperta</h2></div>
+      ${gram.map(g=>`<div class="riep-riga">${esc(g)}</div>`).join("")}</div></section>`:""}
+
+    ${deck.length?`<section><div class="card">
+      <div class="sh"><h2>Da ripassare + parole importanti</h2><small>${deck.length} carte</small></div>
+      <div id="deck-ripasso"></div>
+    </div></section>`:`<section><div class="card"><div class="sh"><h2>Da ripassare + parole importanti</h2></div>
+      <div class="vuoto">Nessuna carta in questo ripasso.</div></div></section>`}
+
+    <section><div class="card">
+      <div class="sh"><h2>Esercizi</h2></div>
+      <div id="ex-wrap"></div>
+      <div class="score"><span>Risposte corrette</span><span><b id="ex-sc">0</b> <span id="ex-sct"></span></span></div>
+    </div></section>
+
+    ${riep.length?`<section><div class="card"><div class="sh"><h2>Riepilogo</h2></div>
+      ${riep.map(x=>{const isBarra=/[█░]/.test(String(x))||String(x).trim().startsWith("[");
+        return `<div class="riep-riga${isBarra?" barra":""}">${esc(x)}</div>`;}).join("")}</div></section>`:""}
+
+    <footer>Quaderno di tedesco · ripasso del ${dataItaliana(r.data)}</footer>`;
+}
+function attachRipasso(r){
+  const c=r.contenuto||{};
+  const deck=(Array.isArray(r.deck)?r.deck:[]).filter(x=>x&&(x.de||x.it));
+  if(deck.length){
+    document.getElementById("deck-ripasso").innerHTML=creaDeckHTML("rg",{flag:true});
+    attachDeck("rg",deck,{flag:true,campoId:"n",comando:"ERRORI ripasso"});
+  }
+  const esercizi=Array.isArray(c.esercizi)?c.esercizi:[];
+  const eswrap=document.getElementById("ex-wrap");
+  const scoreEls={sc:document.getElementById("ex-sc"),sct:document.getElementById("ex-sct")};
+  if(!esercizi.length){
+    eswrap.innerHTML=`<div class="vuoto">Nessun esercizio in questo ripasso.</div>`;
+    scoreEls.sct.textContent="su 0";
+  } else {
+    eswrap.innerHTML=esercizi.map((e,i)=>renderEsercizio(e,i)).join("");
+    attachEsercizi(eswrap,esercizi,scoreEls);
+  }
+}
+
+/* ---------- render principale ---------- */
+function schermataCaricamento(){
+  return `<div class="hero"><h1>Carico il quaderno…</h1><p>Un istante.</p></div>`;
+}
+function schermataErrore(msg){
+  return `<div class="hero"><h1>Quaderno irraggiungibile</h1></div>
+    <div class="card">
+      <div class="vuoto">Non riesco a leggere i dati da Supabase e non ho una copia salvata su questo dispositivo.</div>
+      <div class="avviso no" style="font-family:ui-monospace,monospace;font-size:12.5px">${esc(msg)}</div>
+      <div class="btnrow"><button class="btn" id="btn-riprova">Riprova</button></div>
+    </div>`;
+}
+
+async function render(){
+  const app=document.getElementById('app');
+  const route=currentRoute();
+  offline=false;
+  app.innerHTML=schermataCaricamento();
+  try{
+    if(route.view==="ripassi"){
+      const dati=await caricaRipassi(false);
+      setHeader(()=>{location.hash="#/";},'Lezione','Ripassi generali');
+      app.innerHTML=renderElencoRipassi(dati);
+      document.querySelectorAll(".elenco-riga").forEach(el=>
+        el.addEventListener("click",()=>{location.hash=`#/ripasso/${el.dataset.id}`;}));
+
+    } else if(route.view==="ripasso"){
+      const dati=await caricaRipassi(false);
+      const r=dati.find(x=>x.id===route.id);
+      if(!r){app.innerHTML=`<div class="card vuoto">Ripasso non trovato.</div>`;return;}
+      setHeader(()=>{location.hash="#/ripassi";},'Ripassi',`Ripasso · ${dataItaliana(r.data)}`);
+      app.innerHTML=renderRipasso(r);
+      attachRipasso(r);
+
+    } else {
+      const [dati,stato]=await Promise.all([caricaLezioni(false),caricaStato(false).catch(()=>null)]);
+      if(!dati.length){
+        setHeader(null,'','Quaderno di tedesco');
+        app.innerHTML=`<div class="hero"><h1>Quaderno vuoto</h1>${bannerOffline()}
+          <p>Non c'è ancora nessuna lezione salvata. Appena ne scrivi una comparirà qui.</p></div>
+          <div class="card">${renderRiepilogoPercorso({riepilogo:[]},dati,stato)}</div>
+          <div class="btnrow"><button class="btn o" id="btn-ripassi">Ripassi generali →</button></div>`;
+        document.getElementById("btn-ripassi").addEventListener("click",()=>{location.hash="#/ripassi";});
+        return;
+      }
+      const lez=(route.view==="lezione")?dati.find(l=>l.numero===route.numero):dati[0];
+      if(!lez){
+        setHeader(()=>{location.hash="#/";},'Oggi','Lezione');
+        app.innerHTML=`<div class="card vuoto">Lezione ${route.numero} non trovata.</div>`;return;
+      }
+      const eOggi=lez.numero===dati[0].numero;
+      setHeader(eOggi?null:()=>{location.hash="#/";},eOggi?'':'Oggi',
+        eOggi?'Lezione del giorno':`Lezione ${lez.numero}`);
+      app.innerHTML=renderLezione(lez,dati,stato);
+      attachLezione(lez,dati);
+    }
+    trovaVoci();
+    window.scrollTo(0,0);
+  }catch(e){
+    setHeader(null,'','Quaderno di tedesco');
+    app.innerHTML=schermataErrore(e&&e.message?e.message:String(e));
+    document.getElementById("btn-riprova")?.addEventListener("click",()=>render());
+  }
+}
+
+/* ---------- avvio ---------- */
+window.addEventListener("hashchange",render);
+window.addEventListener("load",()=>{
+  render();
+  if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+});
+document.getElementById("btn-refresh").addEventListener("click",async()=>{
+  cache={lezioni:null,ripassi:null,stato:null};
+  await Promise.all([
+    caricaLezioni(true).catch(()=>{}),
+    caricaRipassi(true).catch(()=>{}),
+    caricaStato(true).catch(()=>{})
+  ]);
+  render();
+});
+</script>
+</body>
+</html>
