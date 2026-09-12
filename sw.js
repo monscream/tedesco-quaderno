@@ -3,7 +3,7 @@
    si apra anche offline. I dati delle lezioni NON passano di qui: l'app li chiede
    sempre alla rete e, se non c'è, ripiega sull'ultima copia salvata in localStorage. */
 
-const CACHE = "quaderno-tedesco-v2";
+const CACHE = "quaderno-tedesco-v3";
 const GUSCIO = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {

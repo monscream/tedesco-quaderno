@@ -71,12 +71,15 @@ h1{font-family:var(--de);font-weight:700;font-size:clamp(28px,7vw,44px);line-hei
 .pick label{font-size:12.5px;font-weight:700;color:var(--mute);white-space:nowrap}
 .pick select{flex:1;min-width:0;font:inherit;font-size:14px;padding:10px 12px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 
-nav.jump{position:sticky;top:calc(env(safe-area-inset-top) + 59px);z-index:15;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
- margin:18px -16px 22px;padding:8px 16px;background:var(--glassBar);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+/* Scorre con la pagina: l'unica cosa che resta fissa è l'header, così sul telefono
+   non si perdono due fasce sovrapposte di altezza. */
+nav.jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+ margin:18px -16px 22px;padding:2px 16px}
 nav.jump::-webkit-scrollbar{display:none}
 nav.jump a{white-space:nowrap;font-size:13px;font-weight:600;text-decoration:none;color:var(--acc);background:var(--accSoft);padding:6px 12px;border-radius:999px}
 
-section{margin:0 0 30px;scroll-margin-top:118px}
+/* scroll-margin = altezza del solo header, così il titolo non finisce sotto la barra */
+section{margin:0 0 30px;scroll-margin-top:72px}
 .card{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glassLine);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 .sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 14px}
 .sh h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-.015em}
@@ -657,6 +660,15 @@ function attachEsercizi(container,esercizi,scoreEls){
 }
 
 /* ---------- routing ---------- */
+/* Le rotte vere iniziano con "#/" (#/lezione/5, #/ripassi, #/ripasso/2).
+   "#vocaboli", "#grammatica"… sono ancore di sezione dentro la pagina già mostrata:
+   devono far scorrere il browser, non ri-renderizzare (altrimenti si torna in cima). */
+const eRotta=h=>h===""||h==="#"||h.startsWith("#/");
+function vaiAllaSezione(){
+  const id=location.hash.slice(1);
+  const el=id&&document.getElementById(id);
+  if(el) el.scrollIntoView();
+}
 function currentRoute(){
   const h=location.hash.replace(/^#\/?/,"");
   if(h.startsWith("lezione/")) return {view:"lezione",numero:parseInt(h.split("/")[1],10)};
@@ -1090,7 +1102,9 @@ async function render(){
       attachLezione(lez,dati);
     }
     trovaVoci();
-    window.scrollTo(0,0);
+    // se si è arrivati con un'ancora di sezione (es. ricaricando su #grammatica),
+    // scendi lì: il salto nativo del browser è avvenuto prima che il DOM esistesse
+    if(eRotta(location.hash)) window.scrollTo(0,0); else vaiAllaSezione();
   }catch(e){
     setHeader(null,'','Quaderno di tedesco');
     app.innerHTML=schermataErrore(e&&e.message?e.message:String(e));
@@ -1099,7 +1113,10 @@ async function render(){
 }
 
 /* ---------- avvio ---------- */
-window.addEventListener("hashchange",render);
+window.addEventListener("hashchange",()=>{
+  if(!eRotta(location.hash)) return;   // ancora di sezione: ci pensa il browser
+  render();
+});
 window.addEventListener("load",()=>{
   render();
   if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
